@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,6 +52,51 @@ public class UsuarioController {
 
         return usuarioFijo;
     } // public Usuario getUsuarioId
+
+
+
+
+    @RequestMapping( value = "usuarios" )
+    public List<Usuario> getUsuarios() {
+
+        Usuario u1 = new Usuario();
+        u1.setId("-1");
+        u1.setNombre("Jennifer");
+        u1.setApellido("Barrios");
+        u1.setEmail("jbarrios@gmail.com");
+        u1.setPassword("123456");
+        u1.setTelefono("43215678");
+
+        Usuario u2 = new Usuario();
+        u2.setId("-2");
+        u2.setNombre("Julissa");
+        u2.setApellido("Estrada");
+        u2.setEmail("jestrada@gmail.com");
+        u2.setPassword("a8df798");
+        u2.setTelefono("43215678");
+
+        Usuario u3 = new Usuario();
+        u3.setId("-3");
+        u3.setNombre("Jeimy");
+        u3.setApellido("Meda");
+        u3.setEmail("jmeda@gmail.com");
+        u3.setPassword("123456");
+        u3.setTelefono("19873918");
+
+        List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+
+        return listaUsuarios;
+    } // public List<Usuario> getUsuarios
+
+
+
+
+
+
+
+
+
+
 
 
 

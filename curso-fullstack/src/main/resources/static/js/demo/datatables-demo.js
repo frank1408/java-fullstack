@@ -13,28 +13,33 @@ $('#dataTable').DataTable();
 
 async function cargarUsuarios() {
 
-const urlApi = "http://127.0.0.1:8080/usuariofijo";
+const urlApi = "http://localhost:8080/usuariofijo/1";
 
 const objetoInfo = {
 
-method: "GET",
-
+mode: 'no-cors', // no-cors, cors, same-origin
+method: "GET", // GET, POST, PUT, DELETE
 headers: {
-"Accept": "application/json",
-"Content-Type": "application/json",
 "Access-Control-Allow-Origin": "*",
-"Access-Control-Allow-Methods": "GET",
-"Access-Control-Allow-Headers": "Content-Type, Authorization"
-}
+"Access-Control-Allow-Methods": "*", //"GET, POST, PUT, DELETE, OPTIONS",
+"Access-Control-Allow-Headers": "*",
+"Content-Type": "application/json", // text/plain, application/x-www-form-urlencoded, multipart/form-data
+"Accept": "application/json"
+},
+cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+//credentials: 'same-origin', // include, *same-origin, omit
+//referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+//body: JSON.stringify(  {a: 1, b: "hola"}  ) // body data type must match "Content-Type" header
 
-};
-
-const getRequest = await fetch( urlApi, objetoInfo );
-
-const resultadoUsuarios = await getRequest.json();
+}; // objetoInfo
 
 //debugger;
-console.log( resultadoUsuarios );
 
+let ans = await fetch( urlApi, objetoInfo );
+ans = await ans.json();
+console.log( ans );
+
+//const resultadoUsuarios = await getRequest.json();
+//console.log( resultadoUsuarios );
 
 } // function cargarUsuarios
