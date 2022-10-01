@@ -84,6 +84,9 @@ public class UsuarioController {
         u3.setTelefono("19873918");
 
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        listaUsuarios.add(u1);
+        listaUsuarios.add(u2);
+        listaUsuarios.add(u3);
 
         return listaUsuarios;
     } // public List<Usuario> getUsuarios

@@ -1,19 +1,20 @@
 
-// Call the dataTables jQuery plugin
+
 $(document).ready(function() {
+
 cargarUsuarios();
-$('#dataTable').DataTable();
+
+// $('#dataTable').DataTable();
+
 });
 
 
-// error CORS
-// https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe
 
 
 
 async function cargarUsuarios() {
 
-const urlApi = "http://localhost:8080/usuariofijo/1";
+const urlApi = "http://localhost:8080/usuarios";
 
 const objetoInfo = {
 
@@ -37,9 +38,37 @@ cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
 
 let ans = await fetch( urlApi, objetoInfo );
 ans = await ans.json();
-console.log( ans );
 
-//const resultadoUsuarios = await getRequest.json();
-//console.log( resultadoUsuarios );
+//console.log( ans ); // hide-this
+
+let x = document.querySelector("#dataTable tbody");
+x.innerHTML = "";
+
+for( let uusuario of ans ) {
+
+let filaUsuario = `
+<tr>
+<td>
+${uusuario.id}
+</td>
+<td>
+${uusuario.nombre} ${uusuario.apellido}
+</td>
+<td>
+${uusuario.email}
+</td>
+<td>
+${uusuario.telefono}
+</td>
+
+<td><a href="#" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>
+</tr>
+`;
+
+x.innerHTML += filaUsuario;
+
+} // for
 
 } // function cargarUsuarios
+
+
