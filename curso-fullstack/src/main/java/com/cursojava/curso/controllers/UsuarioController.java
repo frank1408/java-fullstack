@@ -1,10 +1,11 @@
 package com.cursojava.curso.controllers;
 
+import com.cursojava.curso.dao.UsuarioDao;
 import com.cursojava.curso.models.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,22 +13,32 @@ import java.util.List;
 @RestController
 public class UsuarioController {
 
+    @Autowired
+    private UsuarioDao usuarioDao;
+
+
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
     @RequestMapping( value = "prueba" )
     public String prueba(){
         return "Prueba 1";
     } // prueba 1
 
+
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
     @RequestMapping( value = "prueba2" )
     public List<String> prueba2(){
         return List.of("manzana", "mandarina", "fresa");
     } // prueba 2
 
 
-
-    @RequestMapping( value = "usuariofijo" )
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
+    @RequestMapping( value = "getUsuarioFijo" )
     public Usuario getUsuario(){
         Usuario usuarioFijo = new Usuario();
-        usuarioFijo.setId("-1");
+        usuarioFijo.setId(-1L);
         usuarioFijo.setNombre("Jennifer");
         usuarioFijo.setApellido("Barrios");
         usuarioFijo.setEmail("jbarrios@gmail.com");
@@ -35,13 +46,13 @@ public class UsuarioController {
         usuarioFijo.setTelefono("43215678");
 
         return usuarioFijo;
-    } // public Usuario getUsuario
+    } // public Usuario getUsuarioFijo
 
 
-
-
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
     @RequestMapping( value = "usuariofijo/{id}" )
-    public Usuario getUsuarioId( @PathVariable String id ) {
+    public Usuario getUsuarioId( @PathVariable Long id ) {
         Usuario usuarioFijo = new Usuario();
         usuarioFijo.setId(id);
         usuarioFijo.setNombre("Jennifer");
@@ -54,13 +65,13 @@ public class UsuarioController {
     } // public Usuario getUsuarioId
 
 
-
-
-    @RequestMapping( value = "usuarios" )
-    public List<Usuario> getUsuarios() {
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
+    @RequestMapping( value = "usuariosfijos" )
+    public List<Usuario> getUsuariosFijos() {
 
         Usuario u1 = new Usuario();
-        u1.setId("-1");
+        u1.setId(-1L);
         u1.setNombre("Jennifer");
         u1.setApellido("Barrios");
         u1.setEmail("jbarrios@gmail.com");
@@ -68,7 +79,7 @@ public class UsuarioController {
         u1.setTelefono("43215678");
 
         Usuario u2 = new Usuario();
-        u2.setId("-2");
+        u2.setId(-2L);
         u2.setNombre("Julissa");
         u2.setApellido("Estrada");
         u2.setEmail("jestrada@gmail.com");
@@ -76,7 +87,7 @@ public class UsuarioController {
         u2.setTelefono("43215678");
 
         Usuario u3 = new Usuario();
-        u3.setId("-3");
+        u3.setId(-3L);
         u3.setNombre("Jeimy");
         u3.setApellido("Meda");
         u3.setEmail("jmeda@gmail.com");
@@ -89,27 +100,11 @@ public class UsuarioController {
         listaUsuarios.add(u3);
 
         return listaUsuarios;
-    } // public List<Usuario> getUsuarios
+    } // public List<Usuario> getUsuariosFijios
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*-----*/
-
-
-
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
     @RequestMapping( value = "usuariofijo/update" )
     public Usuario updateUsuario(){
         Usuario usuarioFijo = new Usuario();
@@ -124,9 +119,8 @@ public class UsuarioController {
 
 
 
-
-
-
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
     @RequestMapping( value = "usuariofijo/delete" )
     public Usuario deleteUsuario(){
         Usuario usuarioFijo = new Usuario();
@@ -140,11 +134,8 @@ public class UsuarioController {
     } // public Usuario deleteUsuario
 
 
-
-
-
-
-
+    /* sin acceso a bases de datos */
+    /* sin acceso a bases de datos */
     @RequestMapping( value = "usuariofijo/find" )
     public Usuario buscarUsuario(){
         Usuario usuarioFijo = new Usuario();
@@ -159,8 +150,24 @@ public class UsuarioController {
 
 
 
-} // UsuarioController
 
-/*
-Un controlador se encarga de gestionar/controlar las URL
- */
+
+
+
+
+
+    /* CON ACCESO A BASE DE DATOS */
+    /* CON ACCESO A BASE DE DATOS */
+    @RequestMapping( value = "usuarios" )
+    public List<Usuario> getUsuarios() {
+        return usuarioDao.getUsuarios();
+    } // public List<Usuario> getUsuariosFijios
+
+
+
+
+
+
+
+
+} // UsuarioController
