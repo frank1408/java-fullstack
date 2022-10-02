@@ -99,6 +99,7 @@ confirm(
 	}; // objetoInfo
 	
 	await fetch( urlApi, objetoInfo );
+	location.reload();
 
 } // if confirm eliminar usuario con ID
 
