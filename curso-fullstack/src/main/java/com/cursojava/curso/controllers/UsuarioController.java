@@ -5,6 +5,7 @@ import com.cursojava.curso.models.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,10 +159,26 @@ public class UsuarioController {
 
     /* CON ACCESO A BASE DE DATOS */
     /* CON ACCESO A BASE DE DATOS */
-    @RequestMapping( value = "usuarios" )
+    @RequestMapping( value = "api/usuarios" )
     public List<Usuario> getUsuarios() {
         return usuarioDao.getUsuarios();
     } // public List<Usuario> getUsuariosFijios
+
+
+    /* CON ACCESO A BASE DE DATOS */
+    /* CON ACCESO A BASE DE DATOS */
+    @RequestMapping( value = "api/usuarios/{id}" )
+    public Usuario getUsuario( @PathVariable Long id ) {
+        return usuarioDao.getUsuario( id );
+    } // public Usuario getUsuario
+
+
+    /* CON ACCESO A BASE DE DATOS */
+    /* CON ACCESO A BASE DE DATOS */
+    @RequestMapping( value = "api/usuarios/{id}", method = RequestMethod.DELETE )
+    public void deleteUsuario( @PathVariable Long id ) {
+        usuarioDao.deleteUsuario( id );
+    } // public Usuario getUsuario
 
 
 
