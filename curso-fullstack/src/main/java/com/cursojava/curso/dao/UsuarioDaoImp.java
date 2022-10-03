@@ -36,5 +36,18 @@ public class UsuarioDaoImp implements UsuarioDao {
         entityManager.remove( usuarioDelete );
     }
 
+    @Override
+    @Transactional
+    public void createUsuario(Usuario newUser) {
+        //entityManager.persist( newUser ); ???
+        entityManager.merge( newUser );
+    }
+
+//@Override
+//@Transactional
+//public void updateUsuario(Usuario customUser) {
+//entityManager.merge( customUser );
+//}
+
 
 } // public class UsuarioDaoImp

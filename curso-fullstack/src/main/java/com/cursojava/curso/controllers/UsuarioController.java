@@ -3,10 +3,8 @@ package com.cursojava.curso.controllers;
 import com.cursojava.curso.dao.UsuarioDao;
 import com.cursojava.curso.models.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,7 +157,7 @@ public class UsuarioController {
 
     /* CON ACCESO A BASE DE DATOS */
     /* CON ACCESO A BASE DE DATOS */
-    @RequestMapping( value = "api/usuarios" )
+    @RequestMapping( value = "api/usuarios", method = RequestMethod.GET )
     public List<Usuario> getUsuarios() {
         return usuarioDao.getUsuarios();
     } // public List<Usuario> getUsuariosFijios
@@ -167,7 +165,7 @@ public class UsuarioController {
 
     /* CON ACCESO A BASE DE DATOS */
     /* CON ACCESO A BASE DE DATOS */
-    @RequestMapping( value = "api/usuarios/{id}" )
+    @RequestMapping( value = "api/usuarios/{id}", method = RequestMethod.GET  )
     public Usuario getUsuario( @PathVariable Long id ) {
         return usuarioDao.getUsuario( id );
     } // public Usuario getUsuario
@@ -178,8 +176,15 @@ public class UsuarioController {
     @RequestMapping( value = "api/usuarios/{id}", method = RequestMethod.DELETE )
     public void deleteUsuario( @PathVariable Long id ) {
         usuarioDao.deleteUsuario( id );
-    } // public Usuario getUsuario
+    } // public Usuario deleteUsuario
 
+
+    /* CON ACCESO A BASE DE DATOS */
+    /* CON ACCESO A BASE DE DATOS */
+    @RequestMapping( value = "api/usuarios", method = RequestMethod.POST  )
+    public void createUsuario( @RequestBody Usuario newUser ) {
+        usuarioDao.createUsuario( newUser );
+    } // public Usuario getUsuario
 
 
 

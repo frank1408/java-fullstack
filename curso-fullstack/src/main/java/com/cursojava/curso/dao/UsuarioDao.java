@@ -12,4 +12,6 @@ Usuario getUsuario( Long id );
 
 void deleteUsuario( Long id );
 
+void createUsuario( Usuario newUser );
+
 } // public interface UsuarioDao
