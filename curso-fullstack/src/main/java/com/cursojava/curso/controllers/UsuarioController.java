@@ -2,6 +2,8 @@ package com.cursojava.curso.controllers;
 
 import com.cursojava.curso.dao.UsuarioDao;
 import com.cursojava.curso.models.Usuario;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioDao usuarioDao;
+
+    private String mySalt = "AretPasgteUsdorgon$-2Faon2ctnewU&seyArFdeuarioar.ssworlectory";
+
 
 
     /* sin acceso a bases de datos */
@@ -183,6 +188,16 @@ public class UsuarioController {
     /* CON ACCESO A BASE DE DATOS */
     @RequestMapping( value = "api/usuarios", method = RequestMethod.POST  )
     public void createUsuario( @RequestBody Usuario newUser ) {
+
+        Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
+        final int ITERACIONES_HASH = 255;
+        final int MEMORY_HASH = 2048;
+        final int HILOS_HASH = 2;
+
+        String hashPassword =
+        argon2.hash(ITERACIONES_HASH, MEMORY_HASH, HILOS_HASH, newUser.getPassword() + mySalt );
+        newUser.setPassword( hashPassword );
+
         usuarioDao.createUsuario( newUser );
     } // public Usuario getUsuario
 

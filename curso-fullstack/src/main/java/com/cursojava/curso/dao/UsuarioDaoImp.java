@@ -1,6 +1,8 @@
 package com.cursojava.curso.dao;
 
 import com.cursojava.curso.models.Usuario;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,9 @@ public class UsuarioDaoImp implements UsuarioDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    private String theSalt = "AretPasgteUsdorgon$-2Faon2ctnewU&seyArFdeuarioar.ssworlectory";
+
 
     @Override
     @Transactional
@@ -39,21 +44,25 @@ public class UsuarioDaoImp implements UsuarioDao {
     @Override
     @Transactional
     public void createUsuario(Usuario newUser) {
-
-        
-
         entityManager.merge( newUser );
     }
 
     @Override
     public boolean verificarEmailPassword(Usuario infoUser) {
-        String query = "FROM Usuario WHERE email= :email AND password= :password ";
+        String query = "FROM Usuario WHERE email= :email";
         List<Usuario> listaUsuarios = entityManager.createQuery( query )
                 .setParameter( "email", infoUser.getEmail() )
-                .setParameter( "password", infoUser.getPassword() )
                 .getResultList();
 
-        return !listaUsuarios.isEmpty();
+        if ( listaUsuarios.isEmpty() ){
+            return false;
+        }
+
+        String passwordHashed = listaUsuarios.get(0).getPassword();
+
+        Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
+
+        return argon2.verify( passwordHashed, infoUser.getPassword() + theSalt );
 
     }
 

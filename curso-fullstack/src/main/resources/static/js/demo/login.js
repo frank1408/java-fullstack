@@ -1,14 +1,16 @@
 
 
 async function iniciarSesion() {
-
+//debugger;
 let uuemail     = document.getElementById("uemail");
 let uupassword  = document.getElementById("upassword");
 
 let datosUser = {
-"email": uuemail.value,
+"email":    uuemail.value,
 "password": uupassword.value
 };
+
+//console.log( datosUser );
 
 const urlApi = "http://localhost:8080/api/usuarios";
 

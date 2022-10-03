@@ -39,7 +39,12 @@ body: JSON.stringify( datosNewUser )
 
 }; // objetoInfo
 
-await fetch( urlApi, objetoInfo );
+let ans = await fetch( urlApi, objetoInfo );
+
+if( ans === true ) {
+alert("Cuenta creada !" );
+window.location.href = "/hice/usuarios.html";
+}
 
 } // function crearUsuario
 
