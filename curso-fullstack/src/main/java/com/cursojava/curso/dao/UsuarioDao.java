@@ -14,4 +14,7 @@ void deleteUsuario( Long id );
 
 void createUsuario( Usuario newUser );
 
+boolean verificarEmailPassword(Usuario infoUser);
+
+
 } // public interface UsuarioDao
