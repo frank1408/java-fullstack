@@ -43,6 +43,7 @@ public class UsuarioDaoImp implements UsuarioDao {
         entityManager.merge( newUser );
     }
 
+
 //@Override
 //@Transactional
 //public void updateUsuario(Usuario customUser) {
