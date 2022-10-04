@@ -26,6 +26,7 @@ headers: {
 "Access-Control-Allow-Headers": "*",
 "Content-Type": "application/json",
 "Accept": "application/json"
+"Authorization": localStorage.token 
 },
 cache: 'no-cache',
 
@@ -93,6 +94,7 @@ confirm(
 		"Access-Control-Allow-Headers": "*",
 		"Content-Type": "application/json",
 		"Accept": "application/json"
+		"Authorization": localStorage.token 
 	},
 	cache: 'no-cache',
 	

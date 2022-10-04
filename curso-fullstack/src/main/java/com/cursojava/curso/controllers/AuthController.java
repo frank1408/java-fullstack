@@ -24,9 +24,11 @@ public class AuthController {
 
     /* CON ACCESO A BASE DE DATOS */
     /* CON ACCESO A BASE DE DATOS */
-    @RequestMapping( value = "/api/login", method = RequestMethod.POST  )
+    @RequestMapping( value = "api/login", method = RequestMethod.POST  )
     public String loginUsuario( @RequestBody Usuario infoUser ) {
+
         Usuario usuariOK = usuarioDao.obtenerUsuarioPorCredenciales( infoUser );
+
         if( usuariOK != null ){
             return jwtUtil.create( String.valueOf( usuariOK.getId() ), usuariOK.getEmail() );
         }

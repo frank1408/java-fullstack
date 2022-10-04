@@ -21,6 +21,16 @@ body: JSON.stringify( datosUser )
 }; // objetoInfo
 const request = await fetch( urlApi, objetoInfo );
 const ansB = await request.text(); // var ansA = await request.json();
-localStorage.token = await ansB; // 4:05:00 //window.location.href = "http://localhost:8080/hice/usuarios.html";
+
+if( ansB != "false" ){ // 4:05:00 
+
+localStorage.token = ansB; //localStorage.token = await ansB; 
+window.location.href = "http://localhost:8080/hice/usuarios.html";
+
+} // != false
+
+
+
+
 } // function iniciarSesion
 
