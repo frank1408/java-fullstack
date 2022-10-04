@@ -68,9 +68,11 @@ public class UsuarioDaoImp implements UsuarioDao {
 
 
 
+
+
     @Override
     public Usuario obtenerUsuarioPorCredenciales(Usuario infoUser) {
-        String query = "FROM Usuario WHERE email= :email";
+        String query = "FROM Usuario WHERE email = :email";
         List<Usuario> listaUsuarios = entityManagerPersistenceContext.createQuery( query )
                 .setParameter( "email", infoUser.getEmail() )
                 .getResultList();
@@ -78,24 +80,19 @@ public class UsuarioDaoImp implements UsuarioDao {
         if ( listaUsuarios.isEmpty() ){
             return null;
         }
-
         String passwordHashed = listaUsuarios.get(0).getPassword();
-
         Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
 
-        if( argon2.verify( passwordHashed, infoUser.getPassword() + theSalt ) ){
+        //if( argon2.verify( passwordHashed, infoUser.getPassword() + theSalt ) ){
+        if( argon2.verify( passwordHashed, infoUser.getPassword() ) ){
             return listaUsuarios.get(0);
         }
-
         return null;
     }
 
 
-//@Override
-//@Transactional
-//public void updateUsuario(Usuario customUser) {
-//entityManager.merge( customUser );
-//}
+
+
 
 
 } // public class UsuarioDaoImp

@@ -34,7 +34,6 @@ headers: {
 "Content-Type": "application/json",
 "Accept": "application/json"
 },
-cache: 'no-cache',
 body: JSON.stringify( datosNewUser )
 
 }; // objetoInfo
@@ -42,8 +41,8 @@ body: JSON.stringify( datosNewUser )
 let ans = await fetch( urlApi, objetoInfo );
 
 if( ans === true ) {
-alert("Cuenta creada !" );
-window.location.href = "/hice/usuarios.html";
+alert("Cuenta creada !");
+location.href = "/hice/usuarios.html";
 }
 
 } // function crearUsuario

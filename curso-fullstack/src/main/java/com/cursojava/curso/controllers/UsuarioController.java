@@ -187,7 +187,26 @@ public class UsuarioController {
     /* CON ACCESO A BASE DE DATOS */
     /* CON ACCESO A BASE DE DATOS */
     @RequestMapping( value = "api/usuarios", method = RequestMethod.POST  )
-    public void createUsuario( @RequestBody Usuario newUser ) {
+    public Integer createUsuario( @RequestBody Usuario newUser ) {
+
+
+        if( newUser.getEmail() == null ){
+            return 400;
+        }
+        if( newUser.getTelefono() == null ){
+            return 400;
+        }
+        if( newUser.getNombre() == null ){
+            return 400;
+        }
+        if( newUser.getApellido() == null ){
+            return 400;
+        }
+        if( newUser.getPassword() == null ){
+            return 400;
+        }
+
+
 
         Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
         final int ITERACIONES_HASH = 255;
@@ -195,10 +214,15 @@ public class UsuarioController {
         final int HILOS_HASH = 2;
 
         String hashPassword =
-        argon2.hash(ITERACIONES_HASH, MEMORY_HASH, HILOS_HASH, newUser.getPassword() + mySalt );
+        //argon2.hash(ITERACIONES_HASH, MEMORY_HASH, HILOS_HASH, newUser.getPassword() + mySalt );
+        argon2.hash(ITERACIONES_HASH, MEMORY_HASH, HILOS_HASH, newUser.getPassword() );
+
         newUser.setPassword( hashPassword );
 
         usuarioDao.createUsuario( newUser );
+
+        return 200;
+
     } // public Usuario getUsuario
 
 
