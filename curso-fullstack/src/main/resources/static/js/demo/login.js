@@ -8,9 +8,12 @@ let datosUser = {
 }; // datosUser
 const urlApi = "http://localhost:8080/api/login";
 const objetoInfo = {
-/* mode: 'cors', // no-cors, cors, same-origin */
+mode: 'no-cors', // no-cors, cors, same-origin
 method: "POST",
-headers: { /* "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*", "Access-Control-Allow-Headers": "*", */
+headers: {
+"Access-Control-Allow-Origin": "*",
+"Access-Control-Allow-Methods": "*",
+"Access-Control-Allow-Headers": "*",
 "Content-Type": "application/json",
 "Accept": "application/json"
 },

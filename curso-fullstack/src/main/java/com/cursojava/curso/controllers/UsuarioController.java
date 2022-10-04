@@ -209,9 +209,9 @@ public class UsuarioController {
 
 
         Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
-        final int ITERACIONES_HASH = 255;
-        final int MEMORY_HASH = 2048;
-        final int HILOS_HASH = 2;
+        final int ITERACIONES_HASH = 1;
+        final int MEMORY_HASH = 1024;
+        final int HILOS_HASH = 1;
 
         String hashPassword =
         //argon2.hash(ITERACIONES_HASH, MEMORY_HASH, HILOS_HASH, newUser.getPassword() + mySalt );
