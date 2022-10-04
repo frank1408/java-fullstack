@@ -5,52 +5,73 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+
+
 
 @Repository
 @Transactional
 public class UsuarioDaoImp implements UsuarioDao {
 
+
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager entityManagerPersistenceContext;
+
+
 
     private String theSalt = "AretPasgteUsdorgon$-2Faon2ctnewU&seyArFdeuarioar.ssworlectory";
+
+
+
+
 
 
     @Override
     @Transactional
     public List<Usuario> getUsuarios() {
         String query = "FROM Usuario"; // Hibernate
-        return entityManager.createQuery( query ).getResultList();
+        return entityManagerPersistenceContext.createQuery( query ).getResultList();
     } // public List<Usuario> getUsuarios()
+
+
+
+
+
 
     @Override
     @Transactional
     public Usuario getUsuario(Long id) {
-        return entityManager.find( Usuario.class, id );
+        return entityManagerPersistenceContext.find( Usuario.class, id );
     }
 
 
     @Override
     @Transactional
     public void deleteUsuario(Long id) {
-        Usuario usuarioDelete = entityManager.find( Usuario.class, id );
-        entityManager.remove( usuarioDelete );
+        Usuario usuarioDelete = entityManagerPersistenceContext.find( Usuario.class, id );
+        entityManagerPersistenceContext.remove( usuarioDelete );
     }
+
+
+
+
 
     @Override
     @Transactional
     public void createUsuario(Usuario newUser) {
-        entityManager.merge( newUser );
+        entityManagerPersistenceContext.merge( newUser );
     }
+
+
+
+
 
     @Override
     public Usuario obtenerUsuarioPorCredenciales(Usuario infoUser) {
         String query = "FROM Usuario WHERE email= :email";
-        List<Usuario> listaUsuarios = entityManager.createQuery( query )
+        List<Usuario> listaUsuarios = entityManagerPersistenceContext.createQuery( query )
                 .setParameter( "email", infoUser.getEmail() )
                 .getResultList();
 
