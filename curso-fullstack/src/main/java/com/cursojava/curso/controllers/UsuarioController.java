@@ -2,6 +2,7 @@ package com.cursojava.curso.controllers;
 
 import com.cursojava.curso.dao.UsuarioDao;
 import com.cursojava.curso.models.Usuario;
+import com.cursojava.curso.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class UsuarioController {
 
     private String mySalt = "AretPasgteUsdorgon$-2Faon2ctnewU&seyArFdeuarioar.ssworlectory";
 
+    @Autowired
+    private JWTUtil jwtUtil;
 
 
     /* sin acceso a bases de datos */
@@ -163,7 +166,13 @@ public class UsuarioController {
     /* CON ACCESO A BASE DE DATOS */
     /* CON ACCESO A BASE DE DATOS */
     @RequestMapping( value = "api/usuarios", method = RequestMethod.GET )
-    public List<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios( @RequestHeader(value="Authorization") String token ) {
+        String usuarioId = jwtUtil.getKey(token );
+        if( usuarioId == null ){
+            return new ArrayList<>();
+        }
+
+
         return usuarioDao.getUsuarios();
     } // public List<Usuario> getUsuariosFijios
 
