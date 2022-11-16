@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 @RestController
 public class AuthController {
 
@@ -20,9 +18,6 @@ public class AuthController {
     @Autowired
     private JWTUtil jwtUtil;
 
-
-
-    /* CON ACCESO A BASE DE DATOS */
     /* CON ACCESO A BASE DE DATOS */
     @RequestMapping( value = "api/login", method = RequestMethod.POST  )
     public String loginUsuario( @RequestBody Usuario infoUser ) {
@@ -30,12 +25,10 @@ public class AuthController {
         Usuario usuariOK = usuarioDao.obtenerUsuarioPorCredenciales( infoUser );
 
         if( usuariOK != null ){
-            return jwtUtil.create( String.valueOf( usuariOK.getId() ), usuariOK.getEmail() );
+            return jwtUtil.create( String.valueOf( usuariOK.getId() ), usuariOK.getCorreo() );
         }
         return "false";
     } // public Usuario loginUsuario
-
-
+    /* CON ACCESO A BASE DE DATOS */
 
 } // public class AuthController
-

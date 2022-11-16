@@ -49,7 +49,7 @@ ${uusuario.id}
 ${uusuario.nombre} ${uusuario.apellido}
 </td>
 <td>
-${uusuario.email}
+${uusuario.correo}
 </td>
 <td>
 ${uusuario.telefono}

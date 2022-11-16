@@ -31,7 +31,9 @@ public class UsuarioDaoImp implements UsuarioDao {
     @Override
     @Transactional
     public List<Usuario> getUsuarios() {
-        String query = "FROM Usuario"; // Hibernate
+        // Hibernate
+        // Usuario es nombre de la Clase en el package Models
+        String query = "FROM Usuario";
         return entityManagerPersistenceContext.createQuery( query ).getResultList();
     } // public List<Usuario> getUsuarios()
 
@@ -74,17 +76,17 @@ public class UsuarioDaoImp implements UsuarioDao {
     public Usuario obtenerUsuarioPorCredenciales(Usuario infoUser) {
         String query = "FROM Usuario WHERE email = :email";
         List<Usuario> listaUsuarios = entityManagerPersistenceContext.createQuery( query )
-                .setParameter( "email", infoUser.getEmail() )
+                .setParameter( "email", infoUser.getCorreo() )
                 .getResultList();
 
         if ( listaUsuarios.isEmpty() ){
             return null;
         }
-        String passwordHashed = listaUsuarios.get(0).getPassword();
+        String passwordHashed = listaUsuarios.get(0).getContrasena();
         Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
 
         //if( argon2.verify( passwordHashed, infoUser.getPassword() + theSalt ) ){
-        if( argon2.verify( passwordHashed, infoUser.getPassword() ) ){
+        if( argon2.verify( passwordHashed, infoUser.getContrasena() ) ){
             return listaUsuarios.get(0);
         }
         return null;
