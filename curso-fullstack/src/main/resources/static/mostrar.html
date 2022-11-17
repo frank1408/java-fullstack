@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es-GT">
+<head>
+<meta charset="utf-8">
+<title>Usuarios</title>
+</head>
+<body>
+
+<button onclick="cargarUsuarios()">
+Mostrar Usuarios
+</button>
+
+<table id="tusuario">
+<thead>
+<tr>
+<th>Id</th>
+<th>Nombre y apellido</th>
+<th>Correo</th>
+<th>Telefono</th>
+<th>Opciones</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<script>
+async function cargarUsuarios() {
+	const urlApi = "http://localhost:8000/api/usuarios";
+	const objetoInfo = {
+	mode: 'cors', // no-cors, cors, same-origin
+	method: "GET",
+	headers: {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Methods": "*",
+	"Access-Control-Allow-Headers": "*",
+	"Content-Type": "application/json",
+	"Accept": "application/json",
+	"Authorization": localStorage.token 
+	}
+	}; /* objetoInfo */
+
+	let ans = await fetch( urlApi, objetoInfo );
+	ans = await ans.json();
+	console.log("ans");
+	console.log(ans);
+
+	let x = document.querySelector("#tusuario tbody");
+	x.innerHTML = "";
+
+	for( let uusuario of ans ) {
+
+	let filaUsuario = `
+	<tr>
+
+	<td>
+	${uusuario.id}
+	</td>
+
+	<td>
+	${uusuario.nombre} ${uusuario.apellido}
+	</td>
+
+	<td>
+	${uusuario.correo}
+	</td>
+
+	<td>
+	${uusuario.telefono}
+	</td>
+
+	<td>
+	<a href="#" onclick="deleteUsuario( ${uusuario.id} )">DELETE</a>
+	</td>
+	</tr>
+	`;
+	x.innerHTML += filaUsuario;
+	} // for
+} // function cargarUsuarios
+</script>
+</body>
+</html>
+

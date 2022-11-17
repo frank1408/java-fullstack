@@ -1,11 +1,7 @@
 
 
 $(document).ready(function() {
-
 cargarUsuarios();
-
-// $('#dataTable').DataTable();
-
 });
 
 

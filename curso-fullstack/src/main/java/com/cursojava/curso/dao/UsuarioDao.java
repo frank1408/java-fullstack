@@ -6,15 +6,14 @@ import java.util.List;
 
 public interface UsuarioDao {
 
-List<Usuario> getUsuarios();
+    List<Usuario> getUsuarios();
 
-Usuario getUsuario( Long id );
+    Usuario getUsuario(Long id);
 
-void deleteUsuario( Long id );
+    void deleteUsuario(Long id);
 
-void createUsuario( Usuario newUser );
+    void createUsuario(Usuario newUser);
 
-Usuario obtenerUsuarioPorCredenciales(Usuario infoUser);
-
+    Usuario obtenerUsuarioPorCredenciales(Usuario infoUser);
 
 } // public interface UsuarioDao

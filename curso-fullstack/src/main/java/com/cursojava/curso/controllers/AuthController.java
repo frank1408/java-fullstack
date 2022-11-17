@@ -22,12 +22,17 @@ public class AuthController {
     @RequestMapping( value = "api/login", method = RequestMethod.POST  )
     public String loginUsuario( @RequestBody Usuario infoUser ) {
 
+        String ans = "";
+        /* necesito correo y contrasena */
         Usuario usuariOK = usuarioDao.obtenerUsuarioPorCredenciales( infoUser );
 
         if( usuariOK != null ){
-            return jwtUtil.create( String.valueOf( usuariOK.getId() ), usuariOK.getCorreo() );
+            ans = jwtUtil.create(
+                    String.valueOf( usuariOK.getId() ),
+                    usuariOK.getCorreo()
+            );
         }
-        return "false";
+        return ans;
     } // public Usuario loginUsuario
     /* CON ACCESO A BASE DE DATOS */
 

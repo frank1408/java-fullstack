@@ -6,6 +6,7 @@ import com.cursojava.curso.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class UsuarioController {
     @Autowired
     private JWTUtil jwtUtil;
 
-    private String mySalt = "AretPasgteUsdorgon$-2Faon2ctnewU&seyArFdeuarioar.ssworlectory";
+    //private String mySalt = "randomseed";
 
     private boolean validarToken( String token ){
         String usuarioId = jwtUtil.getKey( token );
@@ -53,38 +54,14 @@ public class UsuarioController {
 
     /* CON ACCESO A BASE DE DATOS */
     @RequestMapping( value = "api/usuarios", method = RequestMethod.POST  )
-    public Integer createUsuario( @RequestBody Usuario newUser ) {
-
-        if( newUser.getCorreo() == null ){
-            return 400;
-        }
-        if( newUser.getTelefono() == null ){
-            return 400;
-        }
-        if( newUser.getNombre() == null ){
-            return 400;
-        }
-        if( newUser.getApellido() == null ){
-            return 400;
-        }
-        if( newUser.getContrasena() == null ){
-            return 400;
-        }
+    public void createUsuario( @RequestBody Usuario newUser ) {
 
         Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
 
-        final int ITERACIONES_HASH = 9;
-        final int MEMORY_HASH = 4096;
-        final int HILOS_HASH = 1;
-
-        String hashPassword = argon2.hash( ITERACIONES_HASH, MEMORY_HASH, HILOS_HASH, newUser.getContrasena() );
-
+        String hashPassword = argon2.hash( 1, 1024, 1, newUser.getContrasena() );
         newUser.setContrasena( hashPassword );
 
         usuarioDao.createUsuario( newUser );
-
-        return 200;
-
     } // createUsuario
     /* CON ACCESO A BASE DE DATOS */
 
