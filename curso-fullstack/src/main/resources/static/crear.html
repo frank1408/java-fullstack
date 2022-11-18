@@ -37,21 +37,24 @@ async function crearUsuario() {
 
 	const objetoInfo = {
 
+	/*
 	mode: 'cors', // no-cors, cors, same-origin
+	*/
 	method: "POST",
 	headers: {
+	/*
 	"Access-Control-Allow-Origin": "*",
 	"Access-Control-Allow-Methods": "*",
 	"Access-Control-Allow-Headers": "*",
-	"Content-Type": "application/json",
-	"Accept": "application/json"
+	*/
+	"Accept": "application/json",
+	"Content-Type": "application/json"
 	},
 	body: JSON.stringify( datosNewUser )
 
 	}; /* objetoInfo */
 	await fetch( urlApi, objetoInfo )
-	alert("Cuenta creada !");
-	window.location.assign("http://localhost:8000/login.html");
+	//window.location.assign("http://localhost:8000/login.html");
 } /* crearUsuario */
 
 </script>
