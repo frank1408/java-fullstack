@@ -24,9 +24,14 @@ public class UsuarioDaoImp implements UsuarioDao {
     @Override
     @Transactional
     public List<Usuario> getUsuarios() {
-        // Hibernate
-        // Usuario es nombre de la Clase en el package Models
-        String query = "FROM Usuario";
+        /*
+        Hibernate
+        Usuario es nombre de la Clase en el package Models
+
+        Se agrega filtro eliminado = 0
+        Osea ver los no "eliminado"
+        */
+        String query = "FROM Usuario WHERE eliminado = 0";
         return entityManagerPersistenceContext.createQuery(query).getResultList();
     } // public List<Usuario> getUsuarios()
 
