@@ -54,7 +54,12 @@ limpiar();
 	console.log("no hay usuario con ese id");
 	return;
 	}
+	/*ans = await ans.json();*/
+	try{
 	ans = await ans.json();
+	}catch( err ){
+		/*console.log( err );*/
+	}
 
 	let x = document.querySelector("#tusuario tbody");
 	x.innerHTML = "";
