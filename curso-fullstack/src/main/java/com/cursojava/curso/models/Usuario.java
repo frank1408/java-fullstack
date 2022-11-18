@@ -39,6 +39,18 @@ public class Usuario {
     @Column(name = "contrasena")
     private String contrasena;
 
+    //@Getter @Setter
+    @Column(name = "eliminado")
+    private String eliminado;
+
+    public String getEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(String eliminado) {
+        this.eliminado = eliminado;
+    }
+
     public Long getId() {
         return id;
     }

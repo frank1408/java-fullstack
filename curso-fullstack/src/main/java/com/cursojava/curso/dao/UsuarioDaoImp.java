@@ -5,11 +5,9 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-
 
 @Repository
 @Transactional
@@ -44,7 +42,20 @@ public class UsuarioDaoImp implements UsuarioDao {
     @Transactional
     public void deleteUsuario(Long id) {
         Usuario usuarioDelete = entityManagerPersistenceContext.find(Usuario.class, id);
+
+        /* eliminar real */
+        /*
         entityManagerPersistenceContext.remove(usuarioDelete);
+        */
+
+
+        /*
+        1 es "eliminar"
+        0 es existe
+        */
+        usuarioDelete.setEliminado("1");
+        entityManagerPersistenceContext.merge( usuarioDelete );
+
     }
 
 
