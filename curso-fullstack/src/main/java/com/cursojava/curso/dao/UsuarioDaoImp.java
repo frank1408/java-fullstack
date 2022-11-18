@@ -14,11 +14,16 @@ import java.util.List;
 public class UsuarioDaoImp implements UsuarioDao {
 
 
+
     @PersistenceContext
     private EntityManager entityManagerPersistenceContext;
 
 
-//private String theSalt = "randomseed";
+
+
+
+
+
 
 
     @Override
@@ -36,11 +41,37 @@ public class UsuarioDaoImp implements UsuarioDao {
     } // public List<Usuario> getUsuarios()
 
 
+
+
+
+
+
+
+
     @Override
     @Transactional
     public Usuario getUsuario(Long id) {
+        /* sin filtros
         return entityManagerPersistenceContext.find(Usuario.class, id);
-    }
+        */
+        Usuario userTmp = entityManagerPersistenceContext.find(Usuario.class, id);
+        if( userTmp.getEliminado().equals("1") ){
+            /*
+            1 eliminado
+            0 activo normal recuperado habilitado
+            */
+            return null;
+        }
+        return userTmp;
+
+    } /* getUsuario */
+
+
+
+
+
+
+
 
 
     @Override
@@ -53,28 +84,52 @@ public class UsuarioDaoImp implements UsuarioDao {
         entityManagerPersistenceContext.remove(usuarioDelete);
         */
 
-
+        /* eliminar fake */
         /*
         1 es "eliminar"
-        0 es existe
+        0 es existe o recuperado o re-habilitado
         */
         usuarioDelete.setEliminado("1");
         entityManagerPersistenceContext.merge( usuarioDelete );
+        /* eliminar fake */
 
-    }
+    } /* deleteUsuario */
+
+
+
+
+
+
+
 
 
     @Override
     @Transactional
     public void createUsuario(Usuario newUser) {
+        /*
+        Hay error, si el correo ya existe en la base de datos,
+        en ese caso se debe recuperar la cuenta.
+        Cambiando el campo eliminado de "1" a "0"
+        eliminado = "0"
+        */
         entityManagerPersistenceContext.merge(newUser);
-    }
+    } /* createUsuario */
+
+
+
+
+
+
+
 
 
     @Override
     //@Transactional
     public Usuario obtenerUsuarioPorCredenciales(Usuario infoUser) {
-        String query = "FROM Usuario WHERE correo = :correo";
+        /*
+        Se agrego filtro para buscar usuarios no "eliminados"
+        */
+        String query = "FROM Usuario WHERE correo = :correo AND eliminado = 0";
         List<Usuario> listaUsuarios = entityManagerPersistenceContext.createQuery(query)
                 .setParameter("correo", infoUser.getCorreo())
                 .getResultList();
@@ -97,7 +152,14 @@ public class UsuarioDaoImp implements UsuarioDao {
         vs el hash en la base de datos
         */
         return null;
-    }
+    } /* obtenerUsuarioPorCredenciales */
+
+
+
+
+
+
+
 
 
 } // public class UsuarioDaoImp
