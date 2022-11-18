@@ -42,8 +42,10 @@ async function cargarUsuarios() {
 
 	let ans = await fetch( urlApi, objetoInfo );
 	ans = await ans.json();
+	/*
 	console.log("ans");
 	console.log(ans);
+	*/
 
 	let x = document.querySelector("#tusuario tbody");
 	x.innerHTML = "";
