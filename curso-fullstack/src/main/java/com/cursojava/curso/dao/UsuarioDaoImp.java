@@ -55,6 +55,9 @@ public class UsuarioDaoImp implements UsuarioDao {
         return entityManagerPersistenceContext.find(Usuario.class, id);
         */
         Usuario userTmp = entityManagerPersistenceContext.find(Usuario.class, id);
+        if( userTmp == null ){
+            return null;
+        }
         if( userTmp.getEliminado().equals("1") ){
             /*
             1 eliminado
