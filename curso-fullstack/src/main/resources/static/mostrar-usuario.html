@@ -51,49 +51,56 @@ limpiar();
 	}; /* objetoInfo */
 
 	let ans = await fetch( urlApi, objetoInfo );
-	if( ans == null){
-	console.log("no hay usuario con ese id");
-	return;
+	if( ans == null || ans == undefined ){
+	alert("no hay usuario con ese id");
+	return -1;
 	}
 	/*ans = await ans.json();*/
-	try{
-	ans = await ans.json();
-	}catch( err ){
-		/*console.log( err );*/
-	}
+	/*ans = await ans.text();*/
+
 
 	let x = document.querySelector("#tusuario tbody");
 	x.innerHTML = "";
 
+	try{
+	ans = await ans.json();
 	let uusuario = ans;
 
-	let filaUsuario = `
-	<tr>
+	
+		let filaUsuario = `
+		<tr>
 
-	<td>
-	${uusuario.id}
-	</td>
+		<td>
+		${uusuario.id}
+		</td>
 
-	<td>
-	${uusuario.nombre} ${uusuario.apellido}
-	</td>
+		<td>
+		${uusuario.nombre} ${uusuario.apellido}
+		</td>
 
-	<td>
-	${uusuario.correo}
-	</td>
+		<td>
+		${uusuario.correo}
+		</td>
 
-	<td>
-	${uusuario.telefono}
-	</td>
+		<td>
+		${uusuario.telefono}
+		</td>
 
-	<td>
-	<!--
-	<a href="#" onclick="deleteUsuario( ${uusuario.id} )">DELETE</a>
-	-->
-	</td>
-	</tr>
-	`;
-	x.innerHTML += filaUsuario;
+		<td>
+		<!--
+		<a href="#" onclick="deleteUsuario( ${uusuario.id} )">DELETE</a>
+		-->
+		</td>
+		</tr>
+		`;
+		x.innerHTML += filaUsuario;
+
+		}catch( err ){
+			alert("404 Not found");
+			/*console.log( err );*/
+		} /* catch */
+
+
 } // function cargarUsuario
 
 function limpiar(){
