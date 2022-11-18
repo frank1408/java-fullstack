@@ -4,11 +4,16 @@ package com.cursojava.curso.models;
 //import lombok.Getter;
 //import lombok.Setter;
 //import lombok.ToString;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 
 @Entity
-@Table(name = "usuarios")
+@Table( name = "usuarios" )
 //@ToString
 //@EqualsAndHashCode
 public class Usuario {
@@ -16,32 +21,44 @@ public class Usuario {
     @Id
     //@Getter @Setter
     @Column(name = "id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
     //@Getter @Setter
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     //@Getter @Setter
-    @Column(name = "apellido")
+    @Column(name = "apellido", nullable = false)
     private String apellido;
 
     //@Getter @Setter
-    @Column(name = "correo")
+    @Column(name = "correo", unique=true, nullable = false)
     private String correo;
 
     //@Getter @Setter
-    @Column(name = "telefono")
+    @Column(name = "telefono", unique=true, nullable = false)
     private String telefono;
 
     //@Getter @Setter
-    @Column(name = "contrasena")
+    @Column(name = "contrasena", nullable = false)
     private String contrasena;
 
     //@Getter @Setter
-    @Column(name = "eliminado")
+    @Column(name = "eliminado", nullable = false)
     private String eliminado;
+
+    //@Getter @Setter
+    @Column(name = "rol", nullable = false)
+    private String rol;
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
     public String getEliminado() {
         return eliminado;

@@ -56,6 +56,9 @@ public class UsuarioController {
     @RequestMapping( value = "api/usuarios", method = RequestMethod.POST  )
     public void createUsuario( @RequestBody Usuario newUser ) {
 
+        newUser.setEliminado("0"); /* 0 activo */
+        newUser.setRol("user"); /* user admin */
+
         Argon2 argon2 = Argon2Factory.create( Argon2Factory.Argon2Types.ARGON2id );
 
         String hashPassword = argon2.hash( 1, 1024, 1, newUser.getContrasena() );
