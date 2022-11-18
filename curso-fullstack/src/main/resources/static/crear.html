@@ -53,7 +53,9 @@ async function crearUsuario() {
 	body: JSON.stringify( datosNewUser )
 
 	}; /* objetoInfo */
-	await fetch( urlApi, objetoInfo )
+	let ans = await fetch( urlApi, objetoInfo )
+	let res = await ans.json();
+	console.log( res );
 	//window.location.assign("http://localhost:8000/login.html");
 } /* crearUsuario */
 
