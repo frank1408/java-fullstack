@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es-GT">
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+</head>
+<body>
+<a href="/index.html">Index</a>
+
+<form autocomplete="on" method="POST">
+<input required autocomplete="on" type="email"    id="ucorreo"     placeholder="correo"     />
+<input required autocomplete="on" type="password" id="ucontrasena" placeholder="contrasena" />
+<input type="submit" value="iniciar sesion" onclick="iniciarSesion()" />
+</form>
+
+<script>
+async function iniciarSesion() {
+
+let ucorreo     = document.getElementById("ucorreo");
+let ucontrasena = document.getElementById("ucontrasena");
+
+let datosUser = {
+"correo":    ucorreo.value,
+"contrasena": ucontrasena.value
+}; // datosUser
+
+const urlApi = "http://localhost:8000/api/login";
+
+const objetoInfo = {
+/*
+mode: 'cors', // no-cors, cors, same-origin
+*/
+method: "POST",
+headers: {
+"Accept": "application/json",
+"Content-Type": "application/json",
+/* por motivos del cors
+"Access-Control-Allow-Origin": "*",
+"Access-Control-Allow-Methods": "*",
+"Access-Control-Allow-Headers": "*"
+*/
+},
+body: JSON.stringify( datosUser )
+}; /* objetoInfo */
+
+/*
+const request = await fetch( urlApi, objetoInfo );
+const ansB = await request.text();
+console.log( await request.json() );
+console.log( await request.text() );
+*/
+
+
+/*
+const request = await fetch( urlApi, objetoInfo )
+.then(response => {
+console.log("response: ")
+console.log( JSON.stringify(response) )
+})
+*/
+
+
+const request = await fetch( urlApi, objetoInfo );
+const ansB = await request.text();
+localStorage.token = ansB;
+window.location.assign("http://localhost:8000/");
+
+
+/*
+JSON.stringify( mmm );
+
+if( ansB !== "" ){
+alert("Bienvenido");
+window.location.assign("http://localhost:8000/index.html");
+}
+window.location.assign("http://localhost:8000/login.html");
+console.log( ansB );
+*/
+
+} /* function iniciarSesion */
+</script>
+</body>
+</html>
+

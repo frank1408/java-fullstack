@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es-GT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Crear</title>
+</head>
+<body>
+<a href="/index.html">Index</a>
+
+<form autocomplete="on" method="post">
+<input required autocomplete="on" type="text"      id="unombre"      name="unombre"     placeholder="nombre"     />
+<input required autocomplete="on" type="text"      id="uapellido"    name="uapellido"   placeholder="apellido"   />
+<input required autocomplete="on" type="email"     id="ucorreo"      name="ucorreo"     placeholder="correo"     />
+<input required autocomplete="on" type="number"    id="utelefono"    name="utelefono"   placeholder="telefono"   />
+<input required autocomplete="on" type="password"  id="ucontrasena"  name="ucontrasena" placeholder="contrasena" />
+<input type="submit" value="Crear" onclick="crearUsuario()" />
+</form>
+
+<script>
+async function crearUsuario() {
+
+	let unombre     = document.getElementById("unombre");
+	let uapellido   = document.getElementById("uapellido");
+	let ucorreo     = document.getElementById("ucorreo");
+	let utelefono   = document.getElementById("utelefono");
+	let ucontrasena = document.getElementById("ucontrasena");
+
+	let datosNewUser = {
+	"nombre":     unombre.value,
+	"apellido":   uapellido.value,
+	"correo":     ucorreo.value,
+	"telefono":   utelefono.value,
+	"contrasena": ucontrasena.value
+	};
+
+	const urlApi = "http://localhost:8000/api/usuarios";
+
+	const objetoInfo = {
+
+	/*
+	mode: 'cors', // no-cors, cors, same-origin
+	*/
+	method: "POST",
+	headers: {
+	/*
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Methods": "*",
+	"Access-Control-Allow-Headers": "*",
+	*/
+	"Accept": "application/json",
+	"Content-Type": "application/json"
+	},
+	body: JSON.stringify( datosNewUser )
+
+	}; /* objetoInfo */
+	let ans = await fetch( urlApi, objetoInfo )
+	let res = await ans.json();
+	console.log( res );
+	//window.location.assign("http://localhost:8000/login.html");
+} /* crearUsuario */
+
+</script>
+</body>
+</html>
+
