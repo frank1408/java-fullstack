@@ -13,7 +13,8 @@
 <input type="submit" value="iniciar sesion" onclick="iniciarSesion()" />
 </form>
 
-<script>
+<script src="secret.js"></script>
+<!--
 async function iniciarSesion() {
 
 let ucorreo     = document.getElementById("ucorreo");
@@ -63,7 +64,7 @@ console.log( JSON.stringify(response) )
 const request = await fetch( urlApi, objetoInfo );
 const ansB = await request.text();
 localStorage.token = ansB;
-window.location.assign("http://localhost:8000/");
+window.location.assign("/");
 
 
 /*
@@ -71,14 +72,14 @@ JSON.stringify( mmm );
 
 if( ansB !== "" ){
 alert("Bienvenido");
-window.location.assign("http://localhost:8000/index.html");
+window.location.assign("/");
 }
-window.location.assign("http://localhost:8000/login.html");
+window.location.assign("/login.html");
 console.log( ansB );
 */
 
 } /* function iniciarSesion */
-</script>
+-->
 </body>
 </html>
 

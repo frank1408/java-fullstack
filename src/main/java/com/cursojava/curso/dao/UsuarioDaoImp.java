@@ -113,7 +113,12 @@ public class UsuarioDaoImp implements UsuarioDao {
         Hay error, si el correo ya existe en la base de datos,
         en ese caso se debe recuperar la cuenta.
         Cambiando el campo eliminado de "1" a "0"
+
         eliminado = "0"
+        usuario habilitado y usuario existe
+
+        eliminado = "1"
+        usuario inhabilitado y usuario no "existe"
         */
         entityManagerPersistenceContext.merge(newUser);
     } /* createUsuario */
