@@ -5,6 +5,7 @@ frank14082013@gmail.com
 */
 
 const URL_API = "http://localhost:8000";
+const XTABLA = document.querySelector("#tusuario tbody");
 
 async function crearUsuario() {
 
@@ -57,7 +58,8 @@ let datosUser = {
 "contrasena": document.getElementById("ucontrasena").value,
 "eliminado": "0"
 }; // datosUser
-
+localStorage.user = "";
+localStorage.token = "";
 let urlApi = URL_API + "/api/login";
 
 let dataSend = JSON.stringify( datosUser );
@@ -77,13 +79,14 @@ mode: 'same-origin',/* same-origin no-cors */
 
 fetch( urlApi, objetoInfo ).then( (response) => {
     response.text().then( (ttoken) => {
-        if( ttoken != "" ){
+        if( ttoken != "-1" || ttoken != "" ){
             localStorage.token = ttoken;
+            alert( "Bienvenido " );
             location.assign("/"); location.href = "/";
         }
     });
 }).catch( (err) => {
-    alert("erroooooor !\n" + err )
+    alert("credenciales invalidas !" )
 });
 
 } /* function iniciarSesion */
@@ -91,8 +94,7 @@ fetch( urlApi, objetoInfo ).then( (response) => {
 async function cargarUsuario() {
 
     limpiar();
-	let uid = document.getElementById("uid");
-	uid = uid.value;
+	let uid = document.getElementById("uid").value;
 	const urlApi = URL_API + "/api/usuarios/" + uid;
 
 	let objetoInfo = {
@@ -113,6 +115,7 @@ async function cargarUsuario() {
 	    .then( (response) => response.json() )
 	    .then( (response2) => {
 	        let uusuario = response2;
+
 	            let filaUsuario = `
                     <tr>
 
@@ -139,17 +142,16 @@ async function cargarUsuario() {
                     </td>
                     </tr>
                     `;
-                    let x = document.querySelector("#tusuario tbody");
-                    x.innerHTML = filaUsuario;
+                    XTABLA.innerHTML = filaUsuario;
 	    })
 	    .catch( (err) => {
         	    alert( err );
-        	});
+        });
+
 } // function cargarUsuario
 
 function limpiar(){
-	let x = document.querySelector("#tusuario tbody");
-	x.innerHTML = "";
+	XTABLA.innerHTML = "";
 }
 
 async function cargarUsuarios() {
@@ -198,8 +200,7 @@ async function cargarUsuarios() {
 	</td>
 	</tr>
 	`;
-    let x = document.querySelector("#tusuario tbody");
-	x.innerHTML += filaUsuario;
+	XTABLA.innerHTML += filaUsuario;
 	} // for
 
 	}catch(err){

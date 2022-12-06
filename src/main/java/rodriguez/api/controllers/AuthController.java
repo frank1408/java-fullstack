@@ -18,7 +18,6 @@ public class AuthController {
     @Autowired
     private JWTUtil jwtUtil;
 
-    /* CON ACCESO A BASE DE DATOS */
     @RequestMapping( value = "api/login", method = RequestMethod.POST  )
     public String login( @RequestBody Usuario infoUser ) {
 
@@ -31,11 +30,9 @@ public class AuthController {
             );
         }catch(Exception e) {
             token = "-1";
-            System.err.println( e.toString() );
         }
         return token;
 
     } /* login */
-    /* CON ACCESO A BASE DE DATOS */
 
 } // public class AuthController

@@ -17,14 +17,12 @@ public class UsuarioDaoImp implements UsuarioDao {
     private EntityManager entityManagerPersistenceContext;
 
     @Override
-    //@Transactional
     public List<Usuario> getUsuarios() {
         String query = "FROM Usuario WHERE eliminado = 0";
         return entityManagerPersistenceContext.createQuery(query).getResultList();
     } /* getUsuarios */
 
     @Override
-    //@Transactional
     public Usuario getUsuario(Long id) {
         Usuario userTmp = entityManagerPersistenceContext.find(Usuario.class, id);
         if( userTmp == null ){
@@ -37,7 +35,6 @@ public class UsuarioDaoImp implements UsuarioDao {
     } /* getUsuario */
 
     @Override
-    //@Transactional
     public void deleteUsuario(Long id) {
         Usuario usuarioDelete = entityManagerPersistenceContext.find(Usuario.class, id);
 
@@ -51,21 +48,13 @@ public class UsuarioDaoImp implements UsuarioDao {
     } /* deleteUsuario */
 
     @Override
-    //@Transactional
     public void createUsuario(Usuario newUser) {
         entityManagerPersistenceContext.merge(newUser);
     } /* createUsuario */
 
     @Override
-    //@Transactional
     public Usuario obtenerUsuarioPorCredenciales(Usuario infoUser) {
 
-        System.out.println(
-          "\n\n=>\t\t"
-          + infoUser.getCorreo()
-          + " "
-          + infoUser.getContrasena()
-        );
         String query = "FROM Usuario WHERE correo = :correo";
 
         List<Usuario> listaUsuarios =
@@ -74,7 +63,6 @@ public class UsuarioDaoImp implements UsuarioDao {
             .getResultList();
 
         if (listaUsuarios.isEmpty()) {
-            System.err.println("\n\n-1 obtenerusuarioporcredenciales");
             return null;
         }
 
@@ -87,9 +75,7 @@ public class UsuarioDaoImp implements UsuarioDao {
             )
         ) {
            return (Usuario) listaUsuarios.get(0);
-
         }
-        System.out.println("\n\n-2 obtenerusuarioporcredenciales");
         return null;
 
     } /* obtenerUsuarioPorCredenciales */
